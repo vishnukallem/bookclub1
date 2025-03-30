@@ -51,7 +51,9 @@
         <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>3.2.2</version>  <!-- Ensure this matches your Spring Boot version -->
+            <configuration>
+                <mainClass>com.bookclub1.bookclub1.Bookclub1Application</mainClass>
+            </configuration>
         </plugin>
     </plugins>
 </build>
