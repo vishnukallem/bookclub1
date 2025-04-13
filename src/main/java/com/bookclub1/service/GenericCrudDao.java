@@ -2,43 +2,20 @@ package com.bookclub1.service;
 
 import java.util.List;
 
-/**
- * A generic CRUD DAO interface for any entity type E and key type K.
- *
- * @param <E> the type of the entity
- * @param <K> the type of the primary key (ID)
- */
 public interface GenericCrudDao<E, K> {
 
-    /**
-     * Adds a new entity.
-     * @param entity the entity to add
-     */
+    // Add a new entity
     void add(E entity);
 
-    /**
-     * Updates an existing entity.
-     * @param entity the entity to update
-     */
+    // Update an existing entity
     void update(E entity);
 
-    /**
-     * Removes an entity.
-     * @param entity the entity to remove
-     * @return true if successfully removed, false otherwise
-     */
+    // Remove an entity (returns true if successful)
     boolean remove(E entity);
 
-    /**
-     * Lists all entities.
-     * @return a list of entities
-     */
+    // Return a list of all entities
     List<E> list();
 
-    /**
-     * Finds an entity by its key.
-     * @param key the key to search for
-     * @return the entity if found, or null
-     */
+    // Find an entity by its key
     E find(K key);
 }
