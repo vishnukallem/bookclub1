@@ -6,30 +6,27 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h2 class="mb-4">Add a New Wishlist Item</h2>
+        <h2>Add a New Wishlist Item</h2>
 
         <!-- Form for adding a new wishlist item -->
-        <form th:action="@{/wishlist/new}" th:object="${wishlistItem}" method="post">
-            <!-- ISBN Field -->
-            <div class="form-group">
-                <label for="isbn">ISBN</label>
-                <input type="text" class="form-control" id="isbn" th:field="*{isbn}" placeholder="Enter ISBN" />
-                <small class="text-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></small>
-            </div>
-			
-			<div class="form-group">
-			                <label for="title">Title</label>
-			                <input type="text" class="form-control" id="title" th:field="*{title}" placeholder="Enter Title" />
-			                <small class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
-			      </div>
+        <form th:action="@{/wishlist/add}" th:object="${wishlistItem}" method="post">
+			<div class="mb-3">
+			                <label for="isbn" class="form-label">ISBN</label>
+			                <input type="text" class="form-control" id="isbn" name="isbn" th:field="*{isbn}" />
+			                <small th:if="${#fields.hasErrors('isbn')}" style="color: red;" th:errors="*{isbn}"></small>
+			            </div>
+			            
+			            <div class="form-group">
+							<label for="Title" class="form-label">Title</label>
+							<input type="text" class="form-control" id="title" name="title" th:field="*{title}" />
+						    <small th:if="${#fields.hasErrors('title')}" style="color: red;" th:errors="*{title}"></small>
+			            </div>
 
-
-            <!-- Buttons -->
-            <div class="mt-4">
-                <button type="submit" class="btn btn-success">Save Wishlist Item</button>
-                <a th:href="@{/wishlist}" class="btn btn-secondary ml-2">Return to Wishlist</a>
-            </div>
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success">Save Wishlist Item</button>
         </form>
+
+       
     </div>
 </body>
 </html>
