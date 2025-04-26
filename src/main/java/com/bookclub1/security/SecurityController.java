@@ -14,7 +14,7 @@ public class SecurityController {
 
     @RequestMapping(path = "/login", method = RequestMethod.GET)
     public String showLoginPage() {
-        return "login";  // This should match the name of your login.html template (without .html)
+        return "login";  
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)

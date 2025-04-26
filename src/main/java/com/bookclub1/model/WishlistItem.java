@@ -2,7 +2,7 @@ package com.bookclub1.model;
 
 import org.springframework.data.annotation.Id;
 
-public class Wishlist {
+public class WishlistItem {
 
     @Id
     private String id;
@@ -12,9 +12,9 @@ public class Wishlist {
     private String author;
 
     // Constructors
-    public Wishlist() {}
+    public WishlistItem() {}
 
-    public Wishlist(String isbn, String title, String author) {
+    public WishlistItem(String isbn, String title, String author) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;

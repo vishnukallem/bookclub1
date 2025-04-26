@@ -1,6 +1,7 @@
 package com.bookclub1.service.impl;
+
 import com.bookclub1.dao.WishlistDao;
-import com.bookclub1.model.Wishlist;
+import com.bookclub1.model.WishlistItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,46 +14,41 @@ public class MongoWishlistDao implements WishlistDao {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    // Implements the required 'add' method from GenericCrudDao
     @Override
-    public void add(Wishlist entity) {
-        mongoTemplate.save(entity);
+    public void add(WishlistItem item) {
+        mongoTemplate.save(item);
     }
 
     @Override
-    public void update(Wishlist entity) {
-        mongoTemplate.save(entity);
+    public void update(WishlistItem item) {
+        mongoTemplate.save(item); // Same as add for MongoDB
     }
 
     @Override
-    public boolean remove(Wishlist entity) {
-        mongoTemplate.remove(entity);
-        return true;
+    public boolean remove(WishlistItem item) {
+        return mongoTemplate.remove(item).wasAcknowledged();
     }
 
     @Override
-    public List<Wishlist> list() {
-        return mongoTemplate.findAll(Wishlist.class);
+    public List<WishlistItem> list() {
+        return mongoTemplate.findAll(WishlistItem.class);
     }
 
     @Override
-    public Wishlist find(Long key) {
-        return mongoTemplate.findById(key, Wishlist.class);
+    public WishlistItem find(String id) {
+        return mongoTemplate.findById(id, WishlistItem.class);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        Wishlist wishlist = find(id);
-        if (wishlist != null) {
-            mongoTemplate.remove(wishlist);
-        }
-    }
-    @Override
-    public List<Wishlist> findAll() {
-        return mongoTemplate.findAll(Wishlist.class);  // Get all Wishlists from MongoDB
-    }
+	@Override
+	public Object findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public void save(Wishlist entity) {
-        mongoTemplate.save(entity);  // Save the Wishlist entity using MongoTemplate
-    }
+	@Override
+	public void save(WishlistItem wishlist) {
+		// TODO Auto-generated method stub
+		
+	}
 }

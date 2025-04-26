@@ -1,3 +1,5 @@
+Login.html
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -16,18 +18,18 @@
                 </div>
                 <div class="card-body">
 
-                    <!-- Success Message -->
+                    
                     <div th:if="${param.logout}" class="alert alert-success" role="alert">
                         You have been logged out successfully!
                     </div>
 
-                    <!-- Error Message -->
+                    
                     <div th:if="${param.error}" class="alert alert-danger" role="alert">
                         Invalid username or password.
                     </div>
 
-                    <!-- Login Form -->
-                    <form name="f" th:action="@{/login}" method="post"> 
+                    
+                    <form name="f" th:action="@{/login}" method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required autofocus>
