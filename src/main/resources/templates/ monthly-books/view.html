@@ -1,45 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Details</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-EVSTQN3/azpr61Anm3QDgpJLm9Nao@Yz1ztcQTwFspd3yD65VohhpuuComLASjC"
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container mt-5">
+        <h1>Book Details</h1>
 
-    <div th:insert="~{fragments/header :: header}"></div>
-
-    <main class="container mt-5">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <h2 class="text-center">Book Details</h2>
-
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" th:text="${book.title}"></h4>
-                        <h6 class="card-subtitle text-muted">
-                            Authors: <span th:text="${book.authors}"></span>
-                        </h6>
-                        <p class="card-text mt-3"><strong>Description:</strong></p>
-                        <p class="card-text" th:text="${book.description}"></p>
-                        <p><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></p>
-                        <p><strong>Number of Pages:</strong> <span th:text="${book.numOfPages}"></span></p>
-                    </div>
-                </div>
-
-                <div class="text-center mt-4">
-                    <a href="/" class="btn btn-primary">Back to Home</a>
-                </div>
+        <!-- Display book details -->
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${book.title}">Book Title</h5>
+                <p class="card-text" th:text="'Description: ' + ${book.description}">Description: This is a sample description of the book.</p>
+                <p class="card-text" th:text="'Number of Pages: ' + ${book.numOfPages}">Number of Pages: 300</p>
+                <a href="#" class="btn btn-primary" th:href="${book.infoUrl}" target="_blank">More Info</a>
             </div>
         </div>
-    </main>
 
-    <div th:insert="~{fragments/footer :: footer}"></div>
-    <div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+        <!-- Link back to book list -->
+        <a href="/books" class="btn btn-secondary mt-3">Back to Book List</a>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

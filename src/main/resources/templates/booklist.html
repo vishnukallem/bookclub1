@@ -1,0 +1,22 @@
+@Controller
+public class BookController {
+
+    @Autowired
+    private BookServiceImpl bookService;
+
+    @GetMapping("/list")
+    public String listBooks(Model model) {
+        List<Book> books = bookService.findAllBooks(); // This is where you fetch the list of books
+
+        // Add books to the model
+        model.addAttribute("books", books);
+
+        // Optionally, add a message in case no books are available
+        if (books == null || books.isEmpty()) {
+            model.addAttribute("message", "No books available.");
+        }
+
+        // Return the view name (Thymeleaf will render the bookList.html template)
+        return "bookList";
+    }
+}
