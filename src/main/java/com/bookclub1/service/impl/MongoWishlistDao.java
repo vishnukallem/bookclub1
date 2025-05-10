@@ -1,53 +1,51 @@
+// MongoWishlistDao.java
 package com.bookclub1.service.impl;
 
 import com.bookclub1.dao.WishlistDao;
 import com.bookclub1.model.WishlistItem;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("wishlistDao")
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class MongoWishlistDao implements WishlistDao {
 
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    // Implements the required 'add' method from GenericCrudDao
-    @Override
-    public void add(WishlistItem item) {
-        mongoTemplate.save(item);
-    }
+    // Other methods like list and update...
 
-    @Override
-    public void update(WishlistItem item) {
-        mongoTemplate.save(item); // Same as add for MongoDB
-    }
+    
+    public boolean remove(String id) {
+        // Create a query to find the wishlist item by its id
+        Query query = new Query(Criteria.where("id").is(id));
 
-    @Override
-    public boolean remove(WishlistItem item) {
-        return mongoTemplate.remove(item).wasAcknowledged();
-    }
+        // Perform the remove operation
+        WishlistItem wishlistItem = mongoTemplate.findAndRemove(query, WishlistItem.class);
 
-    @Override
-    public List<WishlistItem> list() {
-        return mongoTemplate.findAll(WishlistItem.class);
-    }
-
-    @Override
-    public WishlistItem find(String id) {
-        return mongoTemplate.findById(id, WishlistItem.class);
+        // Return true if the item was removed, otherwise false
+        return wishlistItem != null;
     }
 
 	@Override
-	public Object findAll() {
+	public List<WishlistItem> list(String username) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void save(WishlistItem wishlist) {
+	public WishlistItem findById(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(WishlistItem wishlistItem) {
 		// TODO Auto-generated method stub
 		
 	}

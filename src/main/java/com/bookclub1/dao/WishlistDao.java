@@ -1,15 +1,11 @@
 package com.bookclub1.dao;
 
 import com.bookclub1.model.WishlistItem;
-import com.bookclub1.service.GenericCrudDao;
+import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-@Repository("wishlistDao")
-public interface WishlistDao extends GenericCrudDao<WishlistItem, String> {
-
-	Object findAll();
-    // No need to declare deleteById here unless you want a custom method
-
-	void save(WishlistItem wishlist);
+public interface WishlistDao {
+    WishlistItem findById(String id);
+    void update(WishlistItem wishlistItem);
+    boolean remove(String id);
+    List<WishlistItem> list(String username);
 }

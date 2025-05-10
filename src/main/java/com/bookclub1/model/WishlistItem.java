@@ -1,37 +1,28 @@
 package com.bookclub1.model;
 
-import org.springframework.data.annotation.Id;
-
 public class WishlistItem {
 
-    @Id
-    private String id;
-
-    private String isbn;
+    private String id;         // existing fields
     private String title;
     private String author;
+    private String isbn;
+    private String description;
+    
+    // New field added
+    private String username;   // Added username field
 
-    // Constructors
-    public WishlistItem() {}
-
-    public WishlistItem(String isbn, String title, String author) {
-        this.isbn = isbn;
-        this.title = title;
-        this.author = author;
+    // Constructor
+    public WishlistItem() {
     }
 
-    // Getters and Setters
+    // Getters and Setters for all fields
 
     public String getId() {
         return id;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -50,9 +41,41 @@ public class WishlistItem {
         this.author = author;
     }
 
-    // Updated toString method
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // Getter and Setter for the new username field
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    // Overriding the toString() method to include the username
     @Override
     public String toString() {
-        return String.format("WishlistItem{id=%s, isbn=%s, title=%s}", id, isbn, title);
+        return "WishlistItem{" +
+               "id='" + id + '\'' +
+               ", title='" + title + '\'' +
+               ", author='" + author + '\'' +
+               ", isbn='" + isbn + '\'' +
+               ", description='" + description + '\'' +
+               ", username='" + username + '\'' +  // Include username in toString()
+               '}';
     }
 }

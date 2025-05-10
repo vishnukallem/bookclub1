@@ -1,55 +1,38 @@
 package com.bookclub1.web;
 
-import com.bookclub1.model.WishlistItem;
 import com.bookclub1.dao.WishlistDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/wishlist")
 public class WishlistController {
 
+    @Autowired
     private WishlistDao wishlistDao;
 
-    // ✅ Setter injection
-    @Autowired
-    public void setWishlistDao(WishlistDao wishlistDao) {
-        this.wishlistDao = wishlistDao;
-    }
+    /**
+     * Removes a wishlist item by its ID.
+     *
+     * @param id The ID of the wishlist item to remove.
+     * @return A redirect to the wishlist route after removal.
+     */
+    @RequestMapping(method = RequestMethod.GET, path = "/remove/{id}")
+    public String removeWishlistItem(@PathVariable("id") String id) {
+        // Call the remove method in the wishlistDao to remove the item by its ID
+        boolean removed = wishlistDao.remove(id);
 
-    // ✅ Redirect from /wishlist to /wishlist/list
-    @GetMapping
-    public String redirectToWishlistList() {
-        return "redirect:/wishlist/list";
-    }
-
-    // ✅ Show wishlist page (simplified without model attribute)
-    @GetMapping("/list")
-    public String showWishlist() {
-        return "wishlist/list";
-    }
-
-    // ✅ Show new item form
-    @GetMapping("/new")
-    public String wishlistForm(Model model) {
-        model.addAttribute("wishlistItem", new WishlistItem());
-        return "wishlist/new";
-    }
-
-    // ✅ Handle submission of new item
-    @PostMapping("/add")
-    public String addWishlistItem(@Validated WishlistItem wishlistItem, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "wishlist/new";
+        // Check if the removal was successful (you can add error handling as needed)
+        if (!removed) {
+            // Optionally, you can add an error message to the model if the item could not be removed
+            // model.addAttribute("error", "Failed to remove the item.");
+            return "error"; // You can replace with an error page if necessary
         }
 
-        wishlistDao.add(wishlistItem); // Use MongoDB custom method
-        return "redirect:/wishlist/list";
+        // Redirect to the wishlist route after removing the item
+        return "redirect:/wishlist"; // Redirect to the wishlist page or route
     }
 }

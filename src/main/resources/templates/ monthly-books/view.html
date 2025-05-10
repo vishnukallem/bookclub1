@@ -3,29 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Details</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>View Book</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Assuming you have a CSS file -->
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Book Details</h1>
 
-        <!-- Display book details -->
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${book.title}">Book Title</h5>
-                <p class="card-text" th:text="'Description: ' + ${book.description}">Description: This is a sample description of the book.</p>
-                <p class="card-text" th:text="'Number of Pages: ' + ${book.numOfPages}">Number of Pages: 300</p>
-                <a href="#" class="btn btn-primary" th:href="${book.infoUrl}" target="_blank">More Info</a>
+    <div class="container">
+        <div class="book-details">
+
+            <!-- Book Title -->
+            <h1 th:text="${book.getTitle()}">Book Title</h1>
+
+            <!-- Author -->
+            <h3 class="text-muted" th:text="${book.getAuthor()}">Author Name</h3>
+
+            <!-- Number of Pages -->
+            <div class="card-subtitle text-muted">
+                Pages: <span th:text="${book.getNumOfPages()}">0</span>
             </div>
-        </div>
 
-        <!-- Link back to book list -->
-        <a href="/books" class="btn btn-secondary mt-3">Back to Book List</a>
+            <br />
+
+            <!-- Description -->
+            <div class="card-text">
+                <p>
+                    <strong>Description:</strong> <br />
+                    <span th:text="${book.getDescription()}">Description here</span>
+                </p>
+            </div>
+
+            <br />
+
+            <!-- Web Link Button -->
+            <div class="card-text">
+                <strong>Web Link:</strong>
+                <p>
+                    <a th:href="${book.getInfoUrl()}" target="_blank" class="btn btn-primary">
+                        Visit Book Info
+                    </a>
+                </p>
+            </div>
+
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
         <!-- New Wishlist Item button -->
         <a class="btn btn-primary my-3" th:href="@{/wishlist/new}">New Wishlist Item</a>
 
-        <!-- Replaces Thymeleaf table with a dynamic div -->
+        <!-- Dynamic Wishlist Table -->
         <div id="wishlist"></div>
     </div>
 
@@ -32,42 +32,27 @@
         }
 
         function buildTable(books) {
-            let tableString = `
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ISBN</th>
-                            <th>Title</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-
-            for (const book of books) {
+            let tableString = '<table class="table"><tr><th>ISBN</th><th>Title</th><th>Functions</th></tr>';
+            for (let book of books) {
                 tableString += `
                     <tr>
-                        <td>${book.isbn || ''}</td>
-                        <td>${book.title || ''}</td>
+                        <td>${book.isbn}</td>
+                        <td>${book.title}</td>
                         <td>
-                            <a href="/wishlist/delete/${book.id}" class="btn btn-danger">Delete</a>
+                            <a href="/wishlist/${book.id}">Edit</a> |
+                            <a href="/wishlist/remove/${book.id}">Delete</a>
                         </td>
                     </tr>
                 `;
             }
-
-            tableString += `
-                    </tbody>
-                </table>
-            `;
-
+            tableString += '</table>';
             return tableString;
         }
 
         // Load data on page load
         window.onload = async () => {
             const client = new HttpClient();
-            const books = await client.get('/api/wishlist');
+            const books = await client.get('/api/wishlist'); // Confirm this endpoint returns the expected JSON
             document.getElementById('wishlist').innerHTML = buildTable(books);
         };
     </script>
