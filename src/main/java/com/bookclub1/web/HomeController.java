@@ -1,37 +1,59 @@
 package com.bookclub1.web;
 
-import java.util.List;
+import com.bookclub1.model.Book;
+import com.bookclub1.model.BookOfTheMonth;
+import com.bookclub1.service.dao.BookOfTheMonthDao;
+import com.bookclub1.service.impl.RestBookDao;
+import com.bookclub1.service.impl.MongoBookOfTheMonthDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.bookclub1.model.Book;
-import com.bookclub1.service.BookService;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class HomeController {
 
+    private RestBookDao booksDao = new RestBookDao();
+
+    private BookOfTheMonthDao bookOfTheMonthDao = new MongoBookOfTheMonthDao();
+
     @Autowired
-    private BookService bookService;
+    public void setBookOfTheMonthDao(BookOfTheMonthDao bookOfTheMonthDao) {
+        this.bookOfTheMonthDao = bookOfTheMonthDao;
+    }
 
     @GetMapping("/")
     public String showHome(Model model) {
-        // Replace this with actual list logic if implemented
-        // List<Book> books = bookService.list(); // Uncomment if list() exists
-        List<Book> books = List.of(); // Placeholder empty list
+        // Get current month as integer
+        int currentMonth = LocalDate.now().getMonthValue();
 
-        System.out.println("Books List: " + books);
+        // Pass the currentMonth as string key to list() of bookOfTheMonthDao
+        List<BookOfTheMonth> booksOfTheMonth = bookOfTheMonthDao.list(String.valueOf(currentMonth));
+        model.addAttribute("booksOfTheMonth", booksOfTheMonth);
 
-        if (books.isEmpty()) {
-            System.out.println("Error: No books found!");
+        // Build ISBN string like RestBookDao
+        StringBuilder isbnBuilder = new StringBuilder();
+        String[] isbnKeys = {"0451526538", "9780140449136", "9780141182803"};
+
+        for (int i = 0; i < isbnKeys.length; i++) {
+            isbnBuilder.append("ISBN:").append(isbnKeys[i]);
+            if (i < isbnKeys.length - 1) {
+                isbnBuilder.append(",");
+            }
         }
+        String isbnString = isbnBuilder.toString();
 
+        // Call list() on booksDao with isbnString param
+        List<Book> books = booksDao.list(isbnString);
         model.addAttribute("books", books);
-        model.addAttribute("message", "Welcome to the Book Club!");
 
-        return "home"; // Assumes a view template home.html exists
+        model.addAttribute("message", "Welcome to the Book Club!");
+        return "index";
     }
 
     @GetMapping("/about")
@@ -46,13 +68,16 @@ public class HomeController {
         return "contact";
     }
 
-    // New method to retrieve a book by ID
     @GetMapping("/{id}")
     public String getMonthlyBook(@PathVariable("id") String id, Model model) {
-        Book book = bookService.find(id);  // Use BookService to find the book
+        Book book = booksDao.find(id);
+
+        if (book == null) {
+            model.addAttribute("error", "Book not found.");
+            return "error";
+        }
 
         model.addAttribute("book", book);
-
-        return "monthly-books/view";  // Ensure this template exists
+        return "monthly-books/view";
     }
 }

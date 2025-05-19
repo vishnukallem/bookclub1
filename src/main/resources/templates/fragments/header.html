@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/springsecurity6">
@@ -20,13 +22,15 @@
             </button>
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/wishlist/list}">Wishlist</a>
+                        <a class="nav-link" th:href="@{/wishlist}">Wishlist</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/monthly-books}">Monthly Books</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/about}">About Us</a>
@@ -46,7 +50,6 @@
                         </form>
                     </div>
 
-                    <!-- Add Swagger UI link here -->
                     <a href="/swagger-ui/index.html" class="btn btn-outline-info btn-sm ms-2" target="_blank">OpenAPI Specification</a>
                 </div>
             </div>

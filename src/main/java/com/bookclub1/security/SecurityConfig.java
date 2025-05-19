@@ -1,3 +1,5 @@
+
+
 package com.bookclub1.security;
 
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/wishlist", "/api/wishlist", "/login", "/about", "/contact", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/login", "/about", "/contact", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/monthly-books", "/monthly-books/list", "/monthly-books/new").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

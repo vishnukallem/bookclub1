@@ -3,35 +3,75 @@ package com.bookclub1.model;
 public class Book {
     private String isbn;
     private String title;
+    private String infoUrl;
+    private int numOfPages;
     private String description;
-    private String author;
-    private String subject;
 
-    // ✅ Constructor with 5 parameters
-    public Book(String isbn, String title, String description, String author, String subject) {
-        this.isbn = isbn;
-        this.title = title;
-        this.description = description;
-        this.author = author;
-        this.subject = subject;
+    // Default constructor (no-argument constructor)
+    public Book() {
     }
 
-    // ✅ Default constructor (optional, but helpful)
-    public Book() {}
+    // Constructor with all fields (optional, but good practice)
+    public Book(String isbn, String title, String infoUrl, int numOfPages, String description) {
+        this.isbn = isbn;
+        this.title = title;
+        this.infoUrl = infoUrl;
+        this.numOfPages = numOfPages;
+        this.description = description;
+    }
 
-    // ✅ Getters and setters (generate using IDE or manually)
-    public String getIsbn() { return isbn; }
-    public void setIsbn(String isbn) { this.isbn = isbn; }
+    // Getter methods
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getIsbn() {
+        return isbn;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public String getTitle() {
+        return title;
+    }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public String getInfoUrl() {
+        return infoUrl;
+    }
 
-    public String getSubject() { return subject; }
-    public void setSubject(String subject) { this.subject = subject; }
+    public int getNumOfPages() {
+        return numOfPages;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    // Setter methods
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setInfoUrl(String infoUrl) {
+        this.infoUrl = infoUrl;
+    }
+
+    public void setNumOfPages(int numOfPages) {
+        this.numOfPages = numOfPages;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+               "isbn='" + isbn + '\'' +
+               ", title='" + title + '\'' +
+               ", infoUrl='" + infoUrl + '\'' +
+               ", numOfPages=" + numOfPages +
+               ", description='" + description + '\'' +
+               '}';
+    }
 }
